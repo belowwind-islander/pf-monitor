@@ -1,14 +1,14 @@
-# PlayFit Signup Monitor
+# PF Signup Monitor
 
-Monitors Saturday session signups on the PlayFit organiser page and sends email alerts when the threshold is reached.
+Monitors Saturday session signups on the PF organiser page and sends email alerts when the threshold is reached.
 
-Runs every 20 minutes via GitHub Actions.
+Runs every 10 minutes via GitHub Actions.
 
 ## Setup
 
 ### 1. Create a new GitHub repository
 
-Create a new **public** repo (e.g. `playfit-monitor`) and push this code to it.
+Create a new **public** repo (e.g. `pf-monitor`) and push this code to it.
 
 ### 2. Add GitHub Secrets
 
@@ -25,14 +25,14 @@ Go to **Settings → Secrets and variables → Actions → New repository secret
 
 ### 3. Test it
 
-Go to **Actions → PlayFit Signup Monitor → Run workflow** to trigger a manual test run.
+Go to **Actions → PF Signup Monitor → Run workflow** to trigger a manual test run.
 
 ### 4. Done
 
-The workflow runs automatically every 20 minutes. It will email all recipients when the upcoming Saturday session reaches the signup threshold.
+The workflow runs automatically every 10 minutes. It will email all recipients when the upcoming Saturday session reaches the signup threshold.
 
 ## Configuration
 
-Edit `playfit_monitor.py` to change:
-- `SIGNUP_THRESHOLD` — alert when signups reach this number (default: 13)
+Edit `pf_monitor.py` to change:
+- `SIGNUP_THRESHOLD` — alert when signups reach this number (default: 15)
 - `SIGNUP_REFERENCE_DATE` / `SIGNUP_REFERENCE_NUMBER` — reference point for calculating signup links
