@@ -7,5 +7,5 @@ Runs every 10 minutes via GitHub Actions.
 ## Configuration
 
 Edit `pf_monitor.py` to change:
-- `SIGNUP_THRESHOLD` — alert when signups reach this number (default: 15)
+- `SIGNUP_THRESHOLD` — alert when signups reach this number (default: 12)
 - `SIGNUP_REFERENCE_DATE` / `SIGNUP_REFERENCE_NUMBER` — reference point for calculating signup links
