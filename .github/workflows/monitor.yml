@@ -1,4 +1,4 @@
-name: PlayFit Signup Monitor
+name: PF Signup Monitor
 
 on:
   schedule:
