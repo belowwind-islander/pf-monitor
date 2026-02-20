@@ -1,0 +1,53 @@
+name: PlayFit Signup Monitor
+
+on:
+  schedule:
+    # Run every 20 minutes
+    - cron: '*/20 * * * *'
+  workflow_dispatch: # Allow manual triggering for testing
+
+jobs:
+  check-signups:
+    runs-on: ubuntu-latest
+    # Set timezone to London so Saturday 14:30 logic works correctly
+    env:
+      TZ: Europe/London
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      # Restore alerted.txt from cache (persists between runs)
+      - name: Restore alert cache
+        uses: actions/cache/restore@v4
+        with:
+          path: alerted.txt
+          key: alerted-${{ github.run_id }}
+          restore-keys: |
+            alerted-
+
+      - name: Run monitor
+        env:
+          ORGANISER_URL: ${{ secrets.ORGANISER_URL }}
+          PAGE_PASSWORD: ${{ secrets.PAGE_PASSWORD }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          NOTIFY_EMAILS: ${{ secrets.NOTIFY_EMAILS }}
+          SIGNUP_BASE_URL: ${{ secrets.SIGNUP_BASE_URL }}
+        run: python playfit_monitor.py
+
+      # Save alerted.txt to cache (so next run knows what's been sent)
+      - name: Save alert cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: alerted.txt
+          key: alerted-${{ github.run_id }}
