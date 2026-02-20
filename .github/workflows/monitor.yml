@@ -42,7 +42,7 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           NOTIFY_EMAILS: ${{ secrets.NOTIFY_EMAILS }}
           SIGNUP_BASE_URL: ${{ secrets.SIGNUP_BASE_URL }}
-        run: python playfit_monitor.py
+        run: python pf_monitor.py
 
       # Save alerted.txt to cache (so next run knows what's been sent)
       - name: Save alert cache
